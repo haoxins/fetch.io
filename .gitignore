@@ -1,0 +1,5 @@
+test-browser/index.js
+node_modules/
+.DS_Store
+coverage/
+*.xml
