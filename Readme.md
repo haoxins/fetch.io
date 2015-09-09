@@ -1,3 +1,4 @@
+
 [![NPM version][npm-img]][npm-url]
 [![Build status][travis-img]][travis-url]
 [![Test coverage][coveralls-img]][coveralls-url]
@@ -18,19 +19,20 @@ $ npm install fetch.io
 * import
 
 ```js
-// node
+// browser
 
 const Fetch = require('fetch.io')
 
-// browser
+// node
 
-const Fetch = require('fetch.io/lib/fetch')
+const Fetch = require('fetch.io/lib/node')
 ```
 
 ### API
 
 * config - set options
 * set() - set http header
+* type() - set content type
 * send() - send body data
 * query() - set query string
 * append() - append form data
@@ -41,7 +43,7 @@ const Fetch = require('fetch.io/lib/fetch')
 ### Usage
 
 ```js
-let request = new Fetch({
+const request = new Fetch({
   prefix: 'http://example.com/api/v1'
 })
 ```

@@ -5,8 +5,7 @@ module.exports = function(config) {
     basePath: '..',
 
     files: [
-      'lib/fetch.js',
-      'test-browser/index.js'
+      'test/browser-build.js'
     ],
 
     preprocessors: {
@@ -15,12 +14,12 @@ module.exports = function(config) {
 
     autoWatch: true,
 
-    frameworks: ['jasmine'],
+    frameworks: ['mocha'],
 
     browsers: ['Chrome'],
 
     plugins: [
-      'karma-jasmine',
+      'karma-mocha',
       'karma-coverage',
       'karma-chrome-launcher'
     ],

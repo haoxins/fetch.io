@@ -2,29 +2,29 @@
 
 const assert = require('assert')
 const equal = assert.strictEqual
-const Fetch = require('..')
 
 function keysEqual(obj, keys) {
   assert.deepEqual(Object.keys(obj).sort(), keys.sort())
 }
 
-describe('## fetch.io', function() {
-  const jsonType = 'application/json'
-  const host = 'http://httpbin.org'
+module.exports = (Fetch) => {
+  describe('## fetch.io', () => {
+    const jsonType = 'application/json'
+    const host = 'http://httpbin.org'
 
-  let request = new Fetch()
+    const request = new Fetch()
 
-  it('invalid url', function() {
-    try {
-      request.get()
-    } catch (e) {
-      equal(e.message, 'invalid url')
-    }
-  })
+    it('invalid url', () => {
+      try {
+        request.get()
+      } catch (e) {
+        equal(e.message, 'invalid url')
+      }
+    })
 
-  describe('# query', function() {
-    it('query()', function(done) {
-      request
+    describe('# query', () => {
+      it('query()', (done) => {
+        request
         .get(host + '/get')
         .query({
           name: 'haoxin',
@@ -33,22 +33,22 @@ describe('## fetch.io', function() {
         .query({
           type: 1
         })
-        .then(function(res) {
+        .then((res) => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then(function(body) {
+        .then((body) => {
           keysEqual((body.args), ['name', 'pass', 'type'])
           done()
         })
-        .catch(function(err) {
+        .catch((err) => {
           done(err)
         })
-    })
+      })
 
-    it('query() - merge url', function(done) {
-      request
+      it('query() - merge url', (done) => {
+        request
         .get(host + '/get?name=haoxin')
         .query({
           pass: 123456
@@ -56,22 +56,22 @@ describe('## fetch.io', function() {
         .query({
           type: 1
         })
-        .then(function(res) {
+        .then((res) => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then(function(body) {
+        .then((body) => {
           keysEqual(body.args, ['name', 'pass', 'type'])
           done()
         })
-        .catch(function(err) {
+        .catch((err) => {
           done(err)
         })
-    })
+      })
 
-    it('json()', function(done) {
-      request
+      it('json()', (done) => {
+        request
         .get(host + '/get')
         .query({
           name: 'haoxin',
@@ -81,16 +81,16 @@ describe('## fetch.io', function() {
           type: 1
         })
         .json()
-        .then(function(body) {
+        .then((body) => {
           keysEqual(body.args, ['name', 'pass', 'type'])
           done()
-        }).catch(function(err) {
+        }).catch((err) => {
           done(err)
         })
-    })
+      })
 
-    it('text()', function(done) {
-      request
+      it('text()', (done) => {
+        request
         .get(host + '/get')
         .query({
           name: 'haoxin',
@@ -100,20 +100,20 @@ describe('## fetch.io', function() {
           type: 1
         })
         .text()
-        .then(function(text) {
+        .then((text) => {
           equal(typeof text, 'string')
           let body = JSON.parse(text)
           keysEqual(body.args, ['name', 'pass', 'type'])
           done()
-        }).catch(function(err) {
+        }).catch((err) => {
           done(err)
         })
+      })
     })
-  })
 
-  describe('# send', function() {
-    it('json', function(done) {
-      request
+    describe('# send', () => {
+      it('json', (done) => {
+        request
         .post(host + '/post')
         .send({
           name: 'haoxin',
@@ -122,43 +122,43 @@ describe('## fetch.io', function() {
         .send({
           type: 1
         })
-        .then(function(res) {
+        .then((res) => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then(function(body) {
+        .then((body) => {
           equal(body.headers['Content-Type'], jsonType)
           keysEqual(body.json, ['name', 'pass', 'type'])
           done()
         })
-        .catch(function(err) {
+        .catch((err) => {
           done(err)
         })
-    })
+      })
 
-    it('urlencoded', function(done) {
-      request
+      it('urlencoded', (done) => {
+        request
         .post(host + '/post')
         .send('name=haoxin')
         .send('pass=123456')
-        .then(function(res) {
+        .then((res) => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then(function(body) {
+        .then((body) => {
           equal(body.headers['Content-Type'], 'application/x-www-form-urlencoded')
           keysEqual(body.form, ['name', 'pass'])
           done()
         })
-        .catch(function(err) {
+        .catch((err) => {
           done(err)
         })
-    })
+      })
 
-    it.skip('get() should ignore body', function(done) {
-      request
+      it.skip('get() should ignore body', (done) => {
+        request
         .get(host + '/post')
         .send({
           name: 'haoxin',
@@ -167,24 +167,24 @@ describe('## fetch.io', function() {
         .send({
           type: 1
         })
-        .then(function(res) {
+        .then((res) => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then(function(body) {
+        .then((body) => {
           console.log(body)
           done()
         })
-        .catch(function(err) {
+        .catch((err) => {
           done(err)
         })
+      })
     })
-  })
 
-  describe('# set', function() {
-    it('set(key, value)', function(done) {
-      request
+    describe('# set', () => {
+      it('set(key, value)', (done) => {
+        request
         .post(host + '/post')
         .set('content-type', 'application/x-www-form-urlencoded')
         .set('x-fetch-io', 'hello')
@@ -194,24 +194,24 @@ describe('## fetch.io', function() {
         .send({
           pass: 123456
         })
-        .then(function(res) {
+        .then((res) => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then(function(body) {
+        .then((body) => {
           equal(body.headers['Content-Type'], 'application/x-www-form-urlencoded')
           equal(body.headers['X-Fetch-Io'], 'hello')
           keysEqual(body.form, ['name', 'pass'])
           done()
         })
-        .catch(function(err) {
+        .catch((err) => {
           done(err)
         })
-    })
+      })
 
-    it('set(obj)', function(done) {
-      request
+      it('set(obj)', (done) => {
+        request
         .post(host + '/post')
         .set({
           'content-type': 'application/x-www-form-urlencoded',
@@ -223,67 +223,68 @@ describe('## fetch.io', function() {
         .send({
           pass: 123456
         })
-        .then(function(res) {
+        .then((res) => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then(function(body) {
+        .then((body) => {
           equal(body.headers['Content-Type'], 'application/x-www-form-urlencoded')
           equal(body.headers['X-Fetch-Io'], 'hello')
           keysEqual(body.form, ['name', 'pass'])
           done()
         })
-        .catch(function(err) {
+        .catch((err) => {
           done(err)
         })
+      })
     })
-  })
 
-  describe('# append', function() {
-    it('append(key, value)', function(done) {
-      request
+    describe('# append', () => {
+      it('append(key, value)', (done) => {
+        request
         .post(host + '/post')
         .append('name', 'haoxin')
         .append('desc', 'hello world')
-        .then(function(res) {
+        .then((res) => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then(function(body) {
+        .then((body) => {
           assert.ok(body.headers['Content-Type'].startsWith('multipart/form-data'))
           keysEqual(body.form, ['name', 'desc'])
           equal(body.form.name, 'haoxin')
           equal(body.form.desc, 'hello world')
           done()
         })
-        .catch(function(err) {
+        .catch((err) => {
           done(err)
         })
-    })
-  })
-
-  describe('# prefix', function() {
-    it('basic', function(done) {
-      let req = new Fetch({
-        prefix: host + '/get'
       })
+    })
 
-      req
+    describe('# prefix', () => {
+      it('basic', (done) => {
+        let req = new Fetch({
+          prefix: host + '/get'
+        })
+
+        req
         .get('')
-        .then(function(res) {
+        .then((res) => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then(function(body) {
+        .then((body) => {
           equal(body.url, host + '/get')
           done()
         })
-        .catch(function(err) {
+        .catch((err) => {
           done(err)
         })
+      })
     })
   })
-})
+}

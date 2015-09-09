@@ -1,4 +1,4 @@
-test-browser/index.js
+test/browser-build.js
 node_modules/
 .DS_Store
 coverage/
