@@ -1,26 +1,32 @@
 {
   "name": "fetch.io",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "extends the whatwg fetch api, makes it easier to use",
-  "main": "lib/fetch.js",
+  "main": "build/fetch.js",
   "scripts": {
+    "build": "babel lib --out-dir build",
     "test": "mocha -R spec -t 5000 test/node.js",
+    "build-test": "webpack test/browser.js --output-file test/browser-build.js",
     "test-cov": "istanbul cover node_modules/.bin/_mocha -- -R dot -t 5000 test/*.js",
     "test-travis": "istanbul cover node_modules/.bin/_mocha --report lcovonly -- -R dot -t 5000 test/*.js",
     "test-browser": "npm run build-test && karma start test/karma.conf.js",
-    "build-test": "webpack test/browser.js --output-file test/browser-build.js"
+    "prepublish": "npm run build"
   },
   "repository": "haoxins/fetch.io",
   "keywords": [
+    "request",
     "extend",
-    "fetch"
+    "fetch",
+    "ajax"
   ],
   "files": [
+    "build/",
     "lib/"
   ],
   "author": "haoxin",
   "license": "MIT",
   "devDependencies": {
+    "babel": "5",
     "istanbul-harmony": "0",
     "jasmine-core": "2",
     "karma": "0",

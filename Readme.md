@@ -28,17 +28,23 @@ const Fetch = require('fetch.io')
 const Fetch = require('fetch.io/lib/node')
 ```
 
-### API
+### APIs
 
-* config - set options
-* set() - set http header
-* type() - set content type
-* send() - send body data
-* query() - set query string
-* append() - append form data
+* .config() - set options
+* .set() - set http header
+* .type() - set content type
+* .send() - send body data
+* .query() - set query string
+* .append() - append form data
 
-* text() - convert response body to `string`
-* json() - convert response body to `object`
+* .text() - convert response body to `string`
+* .json(strict = true) - convert response body to `object` (strict JSON mode default)
+
+#### Options
+
+* jsonHandler - `Function`, add a handler for `.json()`, to check the response data
+* prefix - `String`, url prefix
+* Other whatwg-fetch options
 
 ### Usage
 

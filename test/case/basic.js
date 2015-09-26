@@ -23,8 +23,8 @@ module.exports = (Fetch) => {
     })
 
     describe('# query', () => {
-      it('query()', (done) => {
-        request
+      it('query()', () => {
+        return request
         .get(host + '/get')
         .query({
           name: 'haoxin',
@@ -40,15 +40,11 @@ module.exports = (Fetch) => {
         })
         .then((body) => {
           keysEqual((body.args), ['name', 'pass', 'type'])
-          done()
-        })
-        .catch((err) => {
-          done(err)
         })
       })
 
-      it('query() - merge url', (done) => {
-        request
+      it('query() - merge url', () => {
+        return request
         .get(host + '/get?name=haoxin')
         .query({
           pass: 123456
@@ -63,15 +59,11 @@ module.exports = (Fetch) => {
         })
         .then((body) => {
           keysEqual(body.args, ['name', 'pass', 'type'])
-          done()
-        })
-        .catch((err) => {
-          done(err)
         })
       })
 
-      it('json()', (done) => {
-        request
+      it('json()', () => {
+        return request
         .get(host + '/get')
         .query({
           name: 'haoxin',
@@ -83,14 +75,11 @@ module.exports = (Fetch) => {
         .json()
         .then((body) => {
           keysEqual(body.args, ['name', 'pass', 'type'])
-          done()
-        }).catch((err) => {
-          done(err)
         })
       })
 
-      it('text()', (done) => {
-        request
+      it('text()', () => {
+        return request
         .get(host + '/get')
         .query({
           name: 'haoxin',
@@ -102,18 +91,15 @@ module.exports = (Fetch) => {
         .text()
         .then((text) => {
           equal(typeof text, 'string')
-          let body = JSON.parse(text)
+          const body = JSON.parse(text)
           keysEqual(body.args, ['name', 'pass', 'type'])
-          done()
-        }).catch((err) => {
-          done(err)
         })
       })
     })
 
     describe('# send', () => {
-      it('json', (done) => {
-        request
+      it('json', () => {
+        return request
         .post(host + '/post')
         .send({
           name: 'haoxin',
@@ -130,15 +116,11 @@ module.exports = (Fetch) => {
         .then((body) => {
           equal(body.headers['Content-Type'], jsonType)
           keysEqual(body.json, ['name', 'pass', 'type'])
-          done()
-        })
-        .catch((err) => {
-          done(err)
         })
       })
 
-      it('urlencoded', (done) => {
-        request
+      it('urlencoded', () => {
+        return request
         .post(host + '/post')
         .send('name=haoxin')
         .send('pass=123456')
@@ -150,15 +132,11 @@ module.exports = (Fetch) => {
         .then((body) => {
           equal(body.headers['Content-Type'], 'application/x-www-form-urlencoded')
           keysEqual(body.form, ['name', 'pass'])
-          done()
-        })
-        .catch((err) => {
-          done(err)
         })
       })
 
-      it.skip('get() should ignore body', (done) => {
-        request
+      it.skip('get() should ignore body', () => {
+        return request
         .get(host + '/post')
         .send({
           name: 'haoxin',
@@ -174,17 +152,13 @@ module.exports = (Fetch) => {
         })
         .then((body) => {
           console.log(body)
-          done()
-        })
-        .catch((err) => {
-          done(err)
         })
       })
     })
 
     describe('# set', () => {
-      it('set(key, value)', (done) => {
-        request
+      it('set(key, value)', () => {
+        return request
         .post(host + '/post')
         .set('content-type', 'application/x-www-form-urlencoded')
         .set('x-fetch-io', 'hello')
@@ -203,15 +177,11 @@ module.exports = (Fetch) => {
           equal(body.headers['Content-Type'], 'application/x-www-form-urlencoded')
           equal(body.headers['X-Fetch-Io'], 'hello')
           keysEqual(body.form, ['name', 'pass'])
-          done()
-        })
-        .catch((err) => {
-          done(err)
         })
       })
 
-      it('set(obj)', (done) => {
-        request
+      it('set(obj)', () => {
+        return request
         .post(host + '/post')
         .set({
           'content-type': 'application/x-www-form-urlencoded',
@@ -232,17 +202,13 @@ module.exports = (Fetch) => {
           equal(body.headers['Content-Type'], 'application/x-www-form-urlencoded')
           equal(body.headers['X-Fetch-Io'], 'hello')
           keysEqual(body.form, ['name', 'pass'])
-          done()
-        })
-        .catch((err) => {
-          done(err)
         })
       })
     })
 
     describe('# append', () => {
-      it('append(key, value)', (done) => {
-        request
+      it('append(key, value)', () => {
+        return request
         .post(host + '/post')
         .append('name', 'haoxin')
         .append('desc', 'hello world')
@@ -256,21 +222,17 @@ module.exports = (Fetch) => {
           keysEqual(body.form, ['name', 'desc'])
           equal(body.form.name, 'haoxin')
           equal(body.form.desc, 'hello world')
-          done()
-        })
-        .catch((err) => {
-          done(err)
         })
       })
     })
 
     describe('# prefix', () => {
-      it('basic', (done) => {
-        let req = new Fetch({
+      it('basic', () => {
+        const req = new Fetch({
           prefix: host + '/get'
         })
 
-        req
+        return req
         .get('')
         .then((res) => {
           equal(res.status, 200)
@@ -279,10 +241,23 @@ module.exports = (Fetch) => {
         })
         .then((body) => {
           equal(body.url, host + '/get')
-          done()
         })
-        .catch((err) => {
-          done(err)
+      })
+    })
+
+    describe('# jsonHandler', () => {
+      it('basic', () => {
+        const req = new Fetch({
+          jsonHandler: (json) => {
+            json.meta = 'json handler'
+          }
+        })
+
+        return req
+        .get(host + '/get')
+        .json()
+        .then((json) => {
+          equal(json.meta, 'json handler')
         })
       })
     })
