@@ -1,3 +1,4 @@
+
 'use strict'
 
 const assert = require('assert')
@@ -8,6 +9,7 @@ function keysEqual(obj, keys) {
 }
 
 module.exports = (Fetch) => {
+
   describe('## fetch.io', () => {
     const jsonType = 'application/json'
     const host = 'http://httpbin.org'
@@ -15,11 +17,16 @@ module.exports = (Fetch) => {
     const request = new Fetch()
 
     it('invalid url', () => {
+      let catched = false
+
       try {
         request.get()
       } catch (e) {
+        catched = true
         equal(e.message, 'invalid url')
       }
+
+      equal(catched, true)
     })
 
     describe('# query', () => {
@@ -61,24 +68,10 @@ module.exports = (Fetch) => {
           keysEqual(body.args, ['name', 'pass', 'type'])
         })
       })
+    })
 
-      it('json()', () => {
-        return request
-        .get(host + '/get')
-        .query({
-          name: 'haoxin',
-          pass: 123456
-        })
-        .query({
-          type: 1
-        })
-        .json()
-        .then((body) => {
-          keysEqual(body.args, ['name', 'pass', 'type'])
-        })
-      })
-
-      it('text()', () => {
+    describe('text()', () => {
+      it('basic', () => {
         return request
         .get(host + '/get')
         .query({
@@ -94,6 +87,32 @@ module.exports = (Fetch) => {
           const body = JSON.parse(text)
           keysEqual(body.args, ['name', 'pass', 'type'])
         })
+      })
+    })
+
+    describe('json()', () => {
+      it('basic', () => {
+        return request
+        .get(host + '/get')
+        .query({
+          name: 'haoxin',
+          pass: 123456
+        })
+        .query({
+          type: 1
+        })
+        .json()
+        .then((body) => {
+          keysEqual(body.args, ['name', 'pass', 'type'])
+        })
+      })
+
+      it('strict - not object (number, string)', () => {
+        console.warn('TODO')
+      })
+
+      it('strict - null', () => {
+        console.warn('TODO')
       })
     })
 
