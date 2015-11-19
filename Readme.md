@@ -77,51 +77,45 @@ request
   .query({
     name: 'hello'
   })
-  .then(function(res) {
+  .then((res) => {
     // fetch response
   })
-  .catch(function(err) {
+  .catch((err) => {
     // ...
   })
+```
 
-// get json body
+* get json body
 
+```js
 request
   .get(path)
-  .query({
-    type: 1
-  })
-  .send({
-    name: 'hello'
-  })
   .json()
-  .then(function(data) {
+  .then((data) => {
     // response body
   })
-  .catch(function(err) {
+  .catch((err) => {
     // ...
   })
+```
 
-// get text body
+* get text body
 
+```js
 request
   .get(path)
-  .query({
-    type: 1
-  })
-  .send({
-    name: 'hello'
-  })
   .text()
-  .then(function(data) {
+  .then((data) => {
     // response body
   })
-  .catch(function(err) {
+  .catch((err) => {
     // ...
   })
+```
 
-// send json
+* send json
 
+```js
 request
   .post(path)
   .send({
@@ -130,64 +124,73 @@ request
   .send({
     name: 'hello'
   })
-  .then(function(res) {
+  .then((res) => {
     // fetch response
   })
-  .catch(function(err) {
+  .catch((err) => {
     // ...
   })
+```
 
-// send urlencoded
+* send urlencoded
 
+```js
 request
   .post(path)
   .send('type=1')
   .send('name=hello')
-  .then(function(res) {
+  .then((res) => {
     // fetch response
   })
-  .catch(function(err) {
+  .catch((err) => {
     // ...
   })
+```
 
-// send urlencoded
+* send urlencoded
 
+```js
 request
   .post(path)
-  .set('content-type', 'application/x-www-form-urlencoded')
+  .type('form')
+  // equal to:
+  // .type('urlencoded')
+  // equal to:
+  // .set('content-type', 'application/x-www-form-urlencoded')
   .send({
     type: 1,
     name: 'hello'
   })
-  .then(function(res) {
+  .then((res) => {
     // fetch response
   })
-  .catch(function(err) {
+  .catch((err) => {
     // ...
   })
+```
 
-// set header
+* set header
 
+```js
 request
   .post(path)
   .set({
     'content-type': 'application/json'
   })
   .send({
-    type: 1
-  })
-  .send({
     name: 'hello'
   })
-  .then(function(res) {
+  .then((res) => {
     // fetch response
   })
-  .catch(function(err) {
+  .catch((err) => {
     // ...
   })
+```
 
-// send form (upload file)
+* send form (multipart) (upload file)
 
+```js
 request
   .post(path)
   .append({
@@ -196,10 +199,10 @@ request
   .append({
     file: document.querySelector('input[type="file"]')files[0]
   })
-  .then(function(res) {
+  .then((res) => {
     // fetch response
   })
-  .catch(function(err) {
+  .catch((err) => {
     // ...
   })
 ```
