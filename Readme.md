@@ -19,13 +19,12 @@ $ npm install fetch.io
 * import
 
 ```js
-// browser
 
 const Fetch = require('fetch.io')
 
-// node
+// or ES6 style
 
-const Fetch = require('fetch.io/lib/node')
+import Fetch from 'fetch.io'
 ```
 
 ### APIs
@@ -77,10 +76,10 @@ request
   .query({
     name: 'hello'
   })
-  .then((res) => {
+  .then(res => {
     // fetch response
   })
-  .catch((err) => {
+  .catch(err => {
     // ...
   })
 ```
@@ -91,10 +90,10 @@ request
 request
   .get(path)
   .json()
-  .then((data) => {
+  .then(body => {
     // response body
   })
-  .catch((err) => {
+  .catch(err => {
     // ...
   })
 ```
@@ -105,10 +104,10 @@ request
 request
   .get(path)
   .text()
-  .then((data) => {
+  .then(body => {
     // response body
   })
-  .catch((err) => {
+  .catch(err => {
     // ...
   })
 ```
@@ -124,10 +123,10 @@ request
   .send({
     name: 'hello'
   })
-  .then((res) => {
+  .then(res => {
     // fetch response
   })
-  .catch((err) => {
+  .catch(err => {
     // ...
   })
 ```
@@ -139,10 +138,10 @@ request
   .post(path)
   .send('type=1')
   .send('name=hello')
-  .then((res) => {
+  .then(res => {
     // fetch response
   })
-  .catch((err) => {
+  .catch(err => {
     // ...
   })
 ```
@@ -161,10 +160,10 @@ request
     type: 1,
     name: 'hello'
   })
-  .then((res) => {
+  .then(res => {
     // fetch response
   })
-  .catch((err) => {
+  .catch(err => {
     // ...
   })
 ```
@@ -180,10 +179,10 @@ request
   .send({
     name: 'hello'
   })
-  .then((res) => {
+  .then(res => {
     // fetch response
   })
-  .catch((err) => {
+  .catch(err => {
     // ...
   })
 ```
@@ -193,16 +192,12 @@ request
 ```js
 request
   .post(path)
-  .append({
-    filename: 'user.png'
-  })
-  .append({
-    file: document.querySelector('input[type="file"]')files[0]
-  })
-  .then((res) => {
+  .append('filename', 'user.png')
+  .append('file': document.querySelector('input[type="file"]')files[0])
+  .then(res => {
     // fetch response
   })
-  .catch((err) => {
+  .catch(err => {
     // ...
   })
 ```

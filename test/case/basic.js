@@ -8,7 +8,7 @@ function keysEqual(obj, keys) {
   assert.deepEqual(Object.keys(obj).sort(), keys.sort())
 }
 
-module.exports = (Fetch) => {
+module.exports = Fetch => {
 
   describe('## fetch.io', () => {
     const jsonType = 'application/json'
@@ -40,12 +40,12 @@ module.exports = (Fetch) => {
         .query({
           type: 1
         })
-        .then((res) => {
+        .then(res => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then((body) => {
+        .then(body => {
           keysEqual((body.args), ['name', 'pass', 'type'])
         })
       })
@@ -59,12 +59,12 @@ module.exports = (Fetch) => {
         .query({
           type: 1
         })
-        .then((res) => {
+        .then(res => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then((body) => {
+        .then(body => {
           keysEqual(body.args, ['name', 'pass', 'type'])
         })
       })
@@ -82,7 +82,7 @@ module.exports = (Fetch) => {
           type: 1
         })
         .text()
-        .then((text) => {
+        .then(text => {
           equal(typeof text, 'string')
           const body = JSON.parse(text)
           keysEqual(body.args, ['name', 'pass', 'type'])
@@ -102,7 +102,7 @@ module.exports = (Fetch) => {
           type: 1
         })
         .json()
-        .then((body) => {
+        .then(body => {
           keysEqual(body.args, ['name', 'pass', 'type'])
         })
       })
@@ -127,12 +127,12 @@ module.exports = (Fetch) => {
         .send({
           type: 1
         })
-        .then((res) => {
+        .then(res => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then((body) => {
+        .then(body => {
           equal(body.headers['Content-Type'], jsonType)
           keysEqual(body.json, ['name', 'pass', 'type'])
         })
@@ -143,12 +143,12 @@ module.exports = (Fetch) => {
         .post(host + '/post')
         .send('name=haoxin')
         .send('pass=123456')
-        .then((res) => {
+        .then(res => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then((body) => {
+        .then(body => {
           equal(body.headers['Content-Type'], 'application/x-www-form-urlencoded')
           keysEqual(body.form, ['name', 'pass'])
         })
@@ -164,12 +164,12 @@ module.exports = (Fetch) => {
         .send({
           type: 1
         })
-        .then((res) => {
+        .then(res => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then((body) => {
+        .then(body => {
           console.log(body)
         })
       })
@@ -187,12 +187,12 @@ module.exports = (Fetch) => {
         .send({
           pass: 123456
         })
-        .then((res) => {
+        .then(res => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then((body) => {
+        .then(body => {
           equal(body.headers['Content-Type'], 'application/x-www-form-urlencoded')
           equal(body.headers['X-Fetch-Io'], 'hello')
           keysEqual(body.form, ['name', 'pass'])
@@ -212,12 +212,12 @@ module.exports = (Fetch) => {
         .send({
           pass: 123456
         })
-        .then((res) => {
+        .then(res => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then((body) => {
+        .then(body => {
           equal(body.headers['Content-Type'], 'application/x-www-form-urlencoded')
           equal(body.headers['X-Fetch-Io'], 'hello')
           keysEqual(body.form, ['name', 'pass'])
@@ -231,12 +231,12 @@ module.exports = (Fetch) => {
         .post(host + '/post')
         .append('name', 'haoxin')
         .append('desc', 'hello world')
-        .then((res) => {
+        .then(res => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then((body) => {
+        .then(body => {
           assert.ok(body.headers['Content-Type'].startsWith('multipart/form-data'))
           keysEqual(body.form, ['name', 'desc'])
           equal(body.form.name, 'haoxin')
@@ -253,12 +253,12 @@ module.exports = (Fetch) => {
 
         return req
         .get('')
-        .then((res) => {
+        .then(res => {
           equal(res.status, 200)
           equal(res.headers.get('Content-Type'), jsonType)
           return res.json()
         })
-        .then((body) => {
+        .then(body => {
           equal(body.url, host + '/get')
         })
       })
@@ -267,7 +267,7 @@ module.exports = (Fetch) => {
     describe('# jsonHandler', () => {
       it('basic', () => {
         const req = new Fetch({
-          jsonHandler: (json) => {
+          jsonHandler: json => {
             json.meta = 'json handler'
           }
         })
@@ -275,7 +275,7 @@ module.exports = (Fetch) => {
         return req
         .get(host + '/get')
         .json()
-        .then((json) => {
+        .then(json => {
           equal(json.meta, 'json handler')
         })
       })
