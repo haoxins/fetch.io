@@ -280,5 +280,42 @@ module.exports = Fetch => {
         })
       })
     })
+
+    describe('beforeRequest', () => {
+      it('basic', () => {
+        let called = false
+
+        const req = new Fetch({
+          beforeRequest: () => {
+            called = true
+          }
+        })
+
+        return req
+        .get(host + '/get')
+        .json()
+        .then(() => {
+          equal(called, true)
+        })
+      })
+
+      it('canceled', () => {
+        const req = new Fetch({
+          beforeRequest: () => {
+            return false
+          }
+        })
+
+        return req
+        .get(host + '/get')
+        .json()
+        .then(() => {
+          throw new Error('this should not be called')
+        })
+        .catch(err => {
+          equal(err.message, 'request canceled by beforeRequest')
+        })
+      })
+    })
   })
 }

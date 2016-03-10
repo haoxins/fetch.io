@@ -41,6 +41,7 @@ import Fetch from 'fetch.io'
 
 #### Options
 
+* beforeRequest - `Function`, a pre-request hook function, returning `false` will cancel the request
 * jsonHandler - `Function`, add a handler for `.json()`, to check the response data
 * prefix - `String`, url prefix
 * Other whatwg-fetch options
