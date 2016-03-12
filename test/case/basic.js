@@ -317,5 +317,24 @@ module.exports = Fetch => {
         })
       })
     })
+
+    describe('afterResponse', () => {
+      it('basic', () => {
+        let called = false
+
+        const req = new Fetch({
+          afterResponse: () => {
+            called = true
+          }
+        })
+
+        return req
+        .get(host + '/get')
+        .json()
+        .then(() => {
+          equal(called, true)
+        })
+      })
+    })
   })
 }

@@ -1,6 +1,6 @@
 {
   "name": "fetch.io",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "extends the whatwg fetch api, makes it easier to use",
   "browser": "build/fetch.js",
   "main": "build/node.js",
@@ -27,8 +27,10 @@
   "author": "haoxin",
   "license": "MIT",
   "devDependencies": {
-    "babel": "5",
-    "istanbul-harmony": "0",
+    "babel-cli": "6",
+    "babel-core": "6",
+    "babel-preset-es2015": "6",
+    "istanbul": "0",
     "jasmine-core": "2",
     "karma": "0",
     "karma-chrome-launcher": "0",
