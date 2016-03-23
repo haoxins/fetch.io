@@ -43,7 +43,7 @@ import Fetch from 'fetch.io'
 
 * beforeRequest - `Function`, a pre-request hook function, returning `false` will cancel the request
 * afterResponse - `Function`, a post-response hook function
-* jsonHandler - `Function`, add a handler for `.json()`, to check the response data
+* afterJSON - `Function`, add a handler for `.json()`, to check the response data
 * prefix - `String`, url prefix
 * Other whatwg-fetch options
 

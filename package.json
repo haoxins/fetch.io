@@ -1,6 +1,6 @@
 {
   "name": "fetch.io",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "extends the whatwg fetch api, makes it easier to use",
   "browser": "build/fetch.js",
   "main": "build/node.js",

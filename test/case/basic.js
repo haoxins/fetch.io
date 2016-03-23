@@ -264,10 +264,10 @@ module.exports = Fetch => {
       })
     })
 
-    describe('# jsonHandler', () => {
+    describe('# afterJSON', () => {
       it('basic', () => {
         const req = new Fetch({
-          jsonHandler: json => {
+          afterJSON: json => {
             json.meta = 'json handler'
           }
         })
@@ -309,6 +309,41 @@ module.exports = Fetch => {
         return req
         .get(host + '/get')
         .json()
+        .then(() => {
+          throw new Error('this should not be called')
+        })
+        .catch(err => {
+          equal(err.message, 'request canceled by beforeRequest')
+        })
+      })
+
+      it('canceled - check url', () => {
+        const req = new Fetch({
+          beforeRequest: (url) => {
+            return !url.includes('😄')
+          }
+        })
+
+        return req
+        .get(host + '/get?emoji=😄')
+        .then(() => {
+          throw new Error('this should not be called')
+        })
+        .catch(err => {
+          equal(err.message, 'request canceled by beforeRequest')
+        })
+      })
+
+      it('canceled - check body', () => {
+        const req = new Fetch({
+          beforeRequest: (url, body) => {
+            return !body.includes('😄')
+          }
+        })
+
+        return req
+        .post(host + '/post')
+        .send({emoji: '😄'})
         .then(() => {
           throw new Error('this should not be called')
         })
