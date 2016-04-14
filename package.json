@@ -1,6 +1,6 @@
 {
   "name": "fetch.io",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "extends the whatwg fetch api, makes it easier to use",
   "browser": "build/fetch.js",
   "main": "build/node.js",
@@ -18,7 +18,8 @@
     "request",
     "extend",
     "fetch",
-    "ajax"
+    "ajax",
+    "api"
   ],
   "files": [
     "build/",
@@ -41,7 +42,7 @@
     "webpack": "1"
   },
   "dependencies": {
-    "form-data": "^1.0.0-rc3",
-    "node-fetch": "^1.3.3"
+    "form-data": "^1.0.0-rc4",
+    "node-fetch": "^1.5.1"
   }
 }

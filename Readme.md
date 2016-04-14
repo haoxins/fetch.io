@@ -13,17 +13,12 @@ makes it easier to use. Both node & browser supported.
 * install
 
 ```bash
-$ npm install fetch.io
+npm install fetch.io
 ```
 
 * import
 
 ```js
-
-const Fetch = require('fetch.io')
-
-// or ES6 style
-
 import Fetch from 'fetch.io'
 ```
 
@@ -62,7 +57,7 @@ const request = new Fetch({
   prefix: '',
   mode: 'cors',
   cache: 'no-cache',
-  credentials: 'same-origin'
+  credentials: 'include'
 }
 ```
 
