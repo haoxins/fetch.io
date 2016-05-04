@@ -154,9 +154,9 @@ module.exports = Fetch => {
         })
       })
 
-      it.skip('get() should ignore body', () => {
+      it('get() should ignore body', () => {
         return request
-        .get(host + '/post')
+        .get(host + '/get')
         .send({
           name: 'haoxin',
           pass: 123456
@@ -170,7 +170,7 @@ module.exports = Fetch => {
           return res.json()
         })
         .then(body => {
-          console.log(body)
+          equal(body.headers['Content-Type'], undefined)
         })
       })
     })
