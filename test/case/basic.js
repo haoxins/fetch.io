@@ -173,20 +173,6 @@ module.exports = Fetch => {
           equal(body.headers['Content-Type'], undefined)
         })
       })
-
-      it('send() should ignore empty body', () => {
-        return request
-        .post(host + '/post')
-        .send()
-        .then(res => {
-          equal(res.status, 200)
-          equal(res.headers.get('Content-Type'), jsonType)
-          return res.json()
-        })
-        .then(body => {
-          equal(body.data, '')
-        })
-      })
     })
 
     describe('# set', () => {
