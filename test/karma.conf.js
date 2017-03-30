@@ -17,12 +17,12 @@ module.exports = function(config) {
 
     frameworks: ['mocha'],
 
-    browsers: ['Chrome'],
+    browsers: ['Safari'],
 
     plugins: [
       'karma-mocha',
       'karma-coverage',
-      'karma-chrome-launcher'
+      'karma-safari-launcher'
     ],
 
     reporters: ['progress', 'coverage'],
