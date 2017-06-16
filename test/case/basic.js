@@ -243,6 +243,23 @@ module.exports = Fetch => {
           equal(body.form.desc, 'hello world')
         })
       })
+
+      it('append(obj)', () => {
+        return request
+        .post(host + '/post')
+        .append({name: 'haoxin', desc: 'hello world'})
+        .then(res => {
+          equal(res.status, 200)
+          equal(res.headers.get('Content-Type'), jsonType)
+          return res.json()
+        })
+        .then(body => {
+          assert.ok(body.headers['Content-Type'].startsWith('multipart/form-data'))
+          keysEqual(body.form, ['name', 'desc'])
+          equal(body.form.name, 'haoxin')
+          equal(body.form.desc, 'hello world')
+        })
+      })
     })
 
     describe('# prefix', () => {

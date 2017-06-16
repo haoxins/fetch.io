@@ -191,6 +191,7 @@ request
   .post(path)
   .append('filename', 'user.png')
   .append('file': document.querySelector('input[type="file"]')files[0])
+  .append({reason: 'set user avatar'})
   .then(res => {
     // fetch response
   })
