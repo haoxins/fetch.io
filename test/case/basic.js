@@ -173,6 +173,20 @@ module.exports = Fetch => {
           equal(body.headers['Content-Type'], undefined)
         })
       })
+
+      it('get() should ignore prop if value is undefined', () => {
+        return request
+        .get(host + '/get')
+        .query({name: undefined})
+        .then(res => {
+          equal(res.status, 200)
+          equal(res.headers.get('Content-Type'), jsonType)
+          return res.json()
+        })
+        .then(body => {
+          equal(Object.keys(body.args).length, 0)
+        })
+      })
     })
 
     describe('# set', () => {
