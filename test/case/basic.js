@@ -417,7 +417,8 @@ module.exports = Fetch => {
         .then(() => {
           called = true
         })
-        .catch(() => {
+        .catch(() => {})
+        .then(() => {
           equal(called, false)
         })
       })
