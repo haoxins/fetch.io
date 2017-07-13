@@ -406,27 +406,20 @@ module.exports = Fetch => {
         let called = false
 
         const req = new Fetch({
-          afterResponse: async (res) => {
-            if (!res.ok) {
-              throw new Error('response not ok')
-            }
+          afterResponse: async () => {
+            throw new Error('response not ok')
           }
         })
 
-        const api = () => {
-          return req
-            .get(host + '/status/401')
-            .text()
-        }
-
-        try {
-          await api()
+        await req
+        .get(host + '/status/401')
+        .json()
+        .then(() => {
           called = true
-        } catch(e) {
-
-        } finally {
+        })
+        .catch(() => {
           equal(called, false)
-        }
+        })
       })
     })
   })
