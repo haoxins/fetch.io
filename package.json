@@ -10,7 +10,7 @@
     "build-test": "webpack --entry ./test/browser.js --output-filename ./test/browser-build.js",
     "test-cov": "istanbul cover node_modules/.bin/_mocha -- -R dot -t 5000 test/*.js",
     "test-browser": "npm run build-test && karma start test/karma.conf.js",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "pretest": "npm run build"
   },
   "repository": "haoxins/fetch.io",
