@@ -401,6 +401,27 @@ module.exports = Fetch => {
           equal(called, true)
         })
       })
+
+      it('async with error', async () => {
+        let called = false
+
+        const req = new Fetch({
+          afterResponse: async () => {
+            throw new Error('response not ok')
+          }
+        })
+
+        try {
+          await req
+          .get(host + '/status/401')
+          .json()
+          called = true
+        } catch(e) {
+          
+        } finally {
+          equal(called, false)
+        }
+      })
     })
   })
 }
