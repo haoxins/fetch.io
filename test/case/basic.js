@@ -411,16 +411,16 @@ module.exports = Fetch => {
           }
         })
 
-        await req
-        .get(host + '/status/401')
-        .json()
-        .then(() => {
+        try {
+          await req
+          .get(host + '/status/401')
+          .json()
           called = true
-        })
-        .catch(() => {})
-        .then(() => {
+        } catch(e) {
+          
+        } finally {
           equal(called, false)
-        })
+        }
       })
     })
   })
