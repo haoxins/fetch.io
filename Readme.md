@@ -22,6 +22,12 @@ npm install fetch.io
 import Fetch from 'fetch.io'
 ```
 
+* for TypeScript users
+
+```bash
+npm install @types/fetch.io
+```
+
 ### APIs
 
 * .config() - set options
