@@ -1,6 +1,6 @@
 
 'use strict'
 
-const Fetch = require('../build/node')
+const Fetch = require('../lib/node')
 
 require('./case/basic')(Fetch)

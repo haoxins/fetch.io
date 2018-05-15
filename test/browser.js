@@ -1,6 +1,6 @@
 
 'use strict'
 
-const Fetch = require('..')
+const Fetch = require('../lib/fetch')
 
 require('./case/basic')(Fetch)
