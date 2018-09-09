@@ -417,7 +417,7 @@ module.exports = Fetch => {
           .json()
           called = true
         } catch(e) {
-          
+
         } finally {
           equal(called, false)
         }

@@ -7,25 +7,28 @@
 
 ### fetch.io
 
-Extends the whatwg `fetch` - [fetch spec](https://fetch.spec.whatwg.org) api,
-makes it easier to use. Both node & browser supported.
+[fetch.io](https://www.npmjs.com/package/fetch.io)
+is a tiny wrapper of
+[fetch API](https://fetch.spec.whatwg.org),
+make you handle HTTP requests more graceful.
+Both node & browser supported.
 
-* install
+* Install
 
 ```bash
-npm install fetch.io
+npm i fetch.io
 ```
 
-* import
+* Import
 
 ```js
 import Fetch from 'fetch.io'
 ```
 
-* for TypeScript users
+* For TypeScript users
 
 ```bash
-npm install @types/fetch.io
+npm i @types/fetch.io
 ```
 
 ### APIs
